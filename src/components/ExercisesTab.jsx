@@ -73,9 +73,11 @@ export default function ExercisesTab() {
 
   const currentScaleDef = SCALES_DEF.find(s => s.id === playingScale);
   const currentRootKey = getNoteString(ALL_NOTES.indexOf(range.low) + currentModulation) || range.low;
+  
+  const showMiniPlayer = isPlaying && !isModalOpen && currentScaleDef;
 
   return (
-    <div className="pt-20 px-6 max-w-4xl mx-auto space-y-8 animate-[fadeIn_0.3s_ease] pb-32">
+    <div className={`pt-20 px-6 max-w-4xl mx-auto space-y-8 animate-[fadeIn_0.3s_ease] transition-all duration-300 ${showMiniPlayer ? 'pb-48' : 'pb-32'}`}>
       <header className="fixed top-0 left-0 z-40 w-full bg-[#0F0D13]/80 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-6 py-4 shadow-[0_4px_20px_rgba(107,79,187,0.1)]">
         <div className="text-slate-100 font-epilogue text-lg font-bold">Exercises</div>
       </header>

@@ -42,7 +42,7 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="flex-1 pb-24">
+      <div className={`flex-1 transition-all duration-300 ${activeRoutineId && isRoutineMinimized ? 'pb-40' : 'pb-24'}`}>
         {activeTab === 'home' && <HomeTab onNavigate={setActiveTab} />}
         {activeTab === 'exercises' && <ExercisesTab />}
         {(activeTab === 'routines' || activeTab === 'routines_wizard') && <RoutinesTab onNavigate={setActiveTab} startInWizard={activeTab === 'routines_wizard'} />}
