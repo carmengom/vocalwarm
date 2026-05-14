@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&amp;family=Manrope:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#e9ddff",
+                    "surface-tint": "#cebdff",
+                    "on-secondary-fixed": "#20005e",
+                    "secondary-container": "#4e3299",
+                    "on-primary-fixed": "#21005e",
+                    "outline": "#948e9d",
+                    "on-tertiary-fixed": "#1f1636",
+                    "on-background": "#e7e0e9",
+                    "tertiary-container": "#675d82",
+                    "surface": "#141218",
+                    "on-tertiary": "#342b4c",
+                    "outline-variant": "#494552",
+                    "on-primary": "#381286",
+                    "inverse-on-surface": "#322f36",
+                    "surface-container-high": "#2b292f",
+                    "secondary-fixed-dim": "#cebdff",
+                    "background": "#141218",
+                    "surface-container": "#211e25",
+                    "on-secondary": "#371682",
+                    "primary-container": "#6b4fbb",
+                    "primary": "#cebdff",
+                    "on-secondary-fixed-variant": "#4e3299",
+                    "tertiary": "#cdc0ea",
+                    "surface-variant": "#36333a",
+                    "surface-container-lowest": "#0f0d13",
+                    "secondary": "#cebdff",
+                    "tertiary-fixed-dim": "#cdc0ea",
+                    "on-surface": "#e7e0e9",
+                    "on-tertiary-fixed-variant": "#4b4164",
+                    "primary-fixed": "#e8ddff",
+                    "surface-container-low": "#1d1a21",
+                    "secondary-fixed": "#e8ddff",
+                    "on-tertiary-container": "#e6d9ff",
+                    "inverse-primary": "#674bb7",
+                    "surface-bright": "#3b383f",
+                    "inverse-surface": "#e7e0e9",
+                    "on-primary-fixed-variant": "#4f319d",
+                    "on-error": "#690005",
+                    "primary-fixed-dim": "#cebdff",
+                    "on-error-container": "#ffdad6",
+                    "on-surface-variant": "#cac4d4",
+                    "surface-container-highest": "#36333a",
+                    "error-container": "#93000a",
+                    "on-secondary-container": "#bda8ff",
+                    "error": "#ffb4ab",
+                    "on-primary-container": "#e5d9ff",
+                    "surface-dim": "#141218"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "gutter": "16px",
+                    "stack-sm": "12px",
+                    "margin-mobile": "24px",
+                    "stack-md": "24px",
+                    "stack-lg": "48px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Epilogue"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "display-lg": ["Epilogue"],
+                    "label-sm": ["Manrope"],
+                    "headline-lg": ["Epilogue"]
+            },
+            "fontSize": {
+                    "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+        .diffusion-glow {
+            box-shadow: 0 0 60px -15px rgba(107, 79, 187, 0.3);
+        }
+        .inner-highlight {
+            box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+        }
+        .glass-surface {
+            background: rgba(45, 36, 69, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md min-h-screen flex flex-col overflow-hidden relative">
+<!-- Ambient Background Elements -->
+<div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+<div class="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] bg-primary-container/10 rounded-full blur-[120px]"></div>
+<div class="absolute top-[20%] -right-[5%] w-[40%] h-[50%] bg-secondary-container/5 rounded-full blur-[100px]"></div>
+<!-- Silhouette Stylized Background -->
+<div class="absolute bottom-0 right-0 w-full h-full opacity-20 pointer-events-none mix-blend-lighten">
+<img alt="stylized silhouette of a soul singer performing in a dimly lit studio with purple ambient stage lighting" class="w-full h-full object-cover object-right-bottom scale-110" data-alt="dramatic silhouette of a soul singer in a hazy, purple-lit studio environment, moody atmosphere with soft light rays" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjkbik3y52T6HViJe1Z3Vp4zkuKWFkzwsh9D7tlU54a2_O6vlA6DM8Yb8G2HygMkejxJHACWhu2gQpvBwVeODU86sRYAiUHkR3PBixN0CRZAW72O5GGwQ20APXB92dN8JVPZEX-W9BOIO_33_xQaznd0d6qlKhND9WArqrdcRhXaz-O0DQHQP0d8TpiNtuI9ac_RgZWmnSCVxwfPw1xzDBLIdUCJTnYE34A7AO5R8lY6xmXnjoXTswh53z1zeBWf1BdQ_OcVVj7dVz"/>
+</div>
+</div>
+<!-- Top Navigation Bar -->
+<header class="relative z-10 bg-transparent flex justify-between items-center w-full px-6 py-4 docked full-width top-0">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-variant transition-colors duration-300 group">
+<span class="material-symbols-outlined text-violet-600 dark:text-violet-400">arrow_back</span>
+</button>
+<div class="font-epilogue text-sm font-medium tracking-wide text-slate-400">
+            Step 1 of 3
+        </div>
+<button class="font-epilogue text-sm font-medium tracking-wide text-violet-600 dark:text-violet-400 hover:text-violet-300 transition-colors duration-300">
+            Skip
+        </button>
+</header>
+<!-- Main Content Canvas -->
+<main class="relative z-10 flex-grow flex flex-col px-margin-mobile pt-stack-lg max-w-2xl mx-auto w-full">
+<div class="space-y-stack-md">
+<div class="space-y-unit">
+<span class="text-primary font-label-sm uppercase tracking-[0.2em]">Welcome</span>
+<h1 class="font-display-lg text-display-lg text-on-surface">What should we call you?</h1>
+<p class="text-on-surface-variant font-body-lg max-w-md">
+                    Your name will be displayed on your personal studio profile and progress reports.
+                </p>
+</div>
+<div class="relative mt-stack-lg group">
+<input class="w-full bg-[#2D2445] border-transparent rounded-xl p-6 text-headline-md font-headline-md focus:border-primary-container focus:ring-0 focus:outline-none transition-all duration-500 placeholder:text-on-tertiary-fixed-variant/50 text-on-surface diffusion-glow" placeholder="Enter your name" type="text"/>
+<div class="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-focus-within:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary-container">edit</span>
+</div>
+</div>
+<!-- Contextual Hint/Encouragement -->
+<div class="flex items-center gap-unit text-on-tertiary-fixed-variant bg-surface-container-low/50 p-4 rounded-lg w-fit">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<p class="text-label-sm">This is how your coach will address you.</p>
+</div>
+</div>
+</main>
+<!-- Fixed Bottom Action Area -->
+<footer class="relative z-10 p-margin-mobile flex flex-col items-center gap-stack-md max-w-2xl mx-auto w-full">
+<button class="w-full bg-primary-container text-on-primary-container font-headline-md py-5 rounded-xl diffusion-glow inner-highlight active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-unit">
+            Continue
+            <span class="material-symbols-outlined">chevron_right</span>
+</button>
+<!-- Progress Indicator Dots -->
+<div class="flex gap-2 pb-4">
+<div class="h-1.5 w-8 rounded-full bg-primary-container"></div>
+<div class="h-1.5 w-1.5 rounded-full bg-surface-variant"></div>
+<div class="h-1.5 w-1.5 rounded-full bg-surface-variant"></div>
+</div>
+</footer>
+<!-- Subtle Grain Overlay for Texture -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')]"></div>
+</body></html>

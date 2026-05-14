@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700;800&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#36333a",
+                        "outline-variant": "#494552",
+                        "on-tertiary": "#342b4c",
+                        "primary-container": "#6b4fbb",
+                        "on-error-container": "#ffdad6",
+                        "surface-container": "#211e25",
+                        "inverse-on-surface": "#322f36",
+                        "surface": "#141218",
+                        "primary-fixed": "#e8ddff",
+                        "on-surface": "#e7e0e9",
+                        "surface-container-low": "#1d1a21",
+                        "primary": "#cebdff",
+                        "on-primary-fixed": "#21005e",
+                        "on-primary-fixed-variant": "#4f319d",
+                        "on-tertiary-container": "#e6d9ff",
+                        "surface-container-lowest": "#0f0d13",
+                        "on-tertiary-fixed": "#1f1636",
+                        "on-primary": "#381286",
+                        "surface-bright": "#3b383f",
+                        "secondary-fixed": "#e8ddff",
+                        "surface-dim": "#141218",
+                        "surface-container-high": "#2b292f",
+                        "secondary-fixed-dim": "#cebdff",
+                        "primary-fixed-dim": "#cebdff",
+                        "on-surface-variant": "#cac4d4",
+                        "on-secondary-fixed-variant": "#4e3299",
+                        "surface-tint": "#cebdff",
+                        "on-tertiary-fixed-variant": "#4b4164",
+                        "tertiary-container": "#675d82",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-secondary": "#371682",
+                        "tertiary-fixed-dim": "#cdc0ea",
+                        "on-background": "#e7e0e9",
+                        "inverse-primary": "#674bb7",
+                        "on-secondary-fixed": "#20005e",
+                        "on-primary-container": "#e5d9ff",
+                        "background": "#141218",
+                        "tertiary": "#cdc0ea",
+                        "surface-container-highest": "#36333a",
+                        "secondary": "#cebdff",
+                        "on-secondary-container": "#bda8ff",
+                        "error": "#ffb4ab",
+                        "inverse-surface": "#e7e0e9",
+                        "error-container": "#93000a",
+                        "secondary-container": "#4e3299",
+                        "on-error": "#690005",
+                        "outline": "#948e9d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "24px",
+                        "margin-mobile": "24px",
+                        "unit": "8px",
+                        "stack-lg": "48px",
+                        "stack-sm": "12px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "headline-md": ["Epilogue"],
+                        "headline-lg": ["Epilogue"],
+                        "display-lg": ["Epilogue"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0F0D13;
+            color: #e7e0e9;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(45, 36, 69, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glow-effect {
+            box-shadow: 0 0 40px rgba(107, 79, 187, 0.15);
+        }
+        .vocal-texture {
+            background-image: radial-gradient(circle at 50% 50%, rgba(107, 79, 187, 0.08) 0%, transparent 70%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased overflow-hidden">
+<!-- Top Navigation (Shell Implementation) -->
+<header class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-[#0F0D13]/80 backdrop-blur-md border-b border-white/10 shadow-[0_4px_20px_rgba(107,79,187,0.15)]">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 duration-200 text-[#6B4FBB] transition-colors hover:text-white">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<span class="font-['Epilogue'] font-light tracking-widest text-xl font-bold tracking-[0.2em] text-white">VOCALIST</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container border border-outline-variant overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a young singer with soft dramatic studio lighting and a clean dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH54JuPgUYq5SoAQa_1ZPK4vvtjCUvIXyaoI8DUdGJ24bx7hK82YDKhk_ABX6tfutrBPEsGKsiT07BOVE2mqnzV8CriQ3b_aQLEYdjYkabLUuuUKR-KrbHAk0GRG9EAV6U002PlNgpW8ra1Le8YHD7PhazlB33A6fqwSDtfo79aGLi4cYvYwCfDFQWgg7okbSFDpzuRtlx3P_UDqqwCgv6EgVW60CO-nd7kDP58XRYikE3WNos1Wo1izIbjC0mYd1J8CSJZFxz1sJs"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="relative min-h-screen flex flex-col items-center justify-center px-margin-mobile vocal-texture">
+<!-- Abstract Background Art Element -->
+<div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-20">
+<img alt="Artistic Texture" class="w-full h-full object-contain filter blur-3xl scale-150" data-alt="Abstract macro shot of vibrant sound waves and golden light particles floating in a deep dark space with purple smoke" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3qiz3ARbkd_1RmNjbLU36lcq-rIWdPo_dqsiDlePQbXkLDh008er1iij_G1VWpPEaNSUU_x-VNGyVZvCGX__TKyHaY70HDRHzEYXnLmrZ5KWOOeMtz8dt7SPVROvLsVht1fPrDLcNBowmzEkmbnrt2LapsilaprI7LYL2oCqwchMG55u807DIJGaiJXHTIXTnA-hMFCJTziofkesmf0C-0mYn11OzKqGvssC_zfmNubcRez-fBrA5eJo_oJxmp2i3-CgCF04xwFYk"/>
+</div>
+</div>
+<!-- Onboarding Card -->
+<div class="relative z-10 w-full max-w-md space-y-stack-lg">
+<!-- Header Section -->
+<div class="space-y-stack-sm text-center">
+<h1 class="font-display-lg text-display-lg text-white">What should we call you?</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[280px] mx-auto opacity-70">
+                    Your name will be displayed in your rehearsal studio and practice logs.
+                </p>
+</div>
+<!-- Input Section -->
+<div class="relative group">
+<input autofocus="" class="w-full bg-[#2D2445] border-transparent rounded-xl px-6 py-5 font-body-lg text-body-lg text-white placeholder:text-outline-variant focus:ring-2 focus:ring-[#6B4FBB] focus:border-transparent transition-all outline-none glow-effect text-center tracking-wide" placeholder="Enter your name" type="text"/>
+<div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-primary transition-all duration-500 group-focus-within:w-1/2 opacity-50 blur-sm"></div>
+</div>
+<!-- Hint Section -->
+<div class="flex items-center justify-center gap-2 text-outline">
+<span class="material-symbols-outlined text-[18px]" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm">This is how your mentor will address you.</span>
+</div>
+</div>
+<!-- Fixed Footer Actions -->
+<div class="fixed bottom-0 left-0 w-full px-margin-mobile pb-12 pt-8 flex flex-col items-center gap-stack-md bg-gradient-to-t from-[#0F0D13] to-transparent">
+<!-- Progress Indicator -->
+<div class="flex items-center gap-3">
+<div class="h-1.5 w-8 rounded-full bg-[#6B4FBB] shadow-[0_0_10px_rgba(107,79,187,0.5)]"></div>
+<div class="h-1.5 w-1.5 rounded-full bg-surface-container-highest"></div>
+<div class="h-1.5 w-1.5 rounded-full bg-surface-container-highest"></div>
+<span class="ml-2 font-label-sm text-label-sm text-outline-variant">1 of 3</span>
+</div>
+<!-- Primary Action -->
+<button class="w-full max-w-md py-4 rounded-full bg-[#6B4FBB] text-white font-headline-md text-headline-md flex items-center justify-center gap-2 group hover:bg-[#7c63c5] transition-all active:scale-95 shadow-[0_4px_20px_rgba(107,79,187,0.3)]">
+                Continue
+                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</button>
+<!-- Skip Option -->
+<button class="font-label-sm text-label-sm text-outline-variant hover:text-white transition-colors">
+                I'll do this later
+            </button>
+</div>
+</main>
+</body></html>

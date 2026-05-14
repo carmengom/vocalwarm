@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#e9ddff",
+                    "tertiary": "#cdc0ea",
+                    "primary-fixed-dim": "#cebdff",
+                    "on-tertiary-container": "#e6d9ff",
+                    "error-container": "#93000a",
+                    "secondary-container": "#4e3299",
+                    "on-tertiary-fixed-variant": "#4b4164",
+                    "primary": "#cebdff",
+                    "tertiary-container": "#675d82",
+                    "primary-fixed": "#e8ddff",
+                    "on-primary-fixed": "#21005e",
+                    "secondary-fixed": "#e8ddff",
+                    "on-primary-container": "#e5d9ff",
+                    "surface-container-highest": "#36333a",
+                    "error": "#ffb4ab",
+                    "outline-variant": "#494552",
+                    "background": "#141218",
+                    "on-secondary-fixed-variant": "#4e3299",
+                    "on-background": "#e7e0e9",
+                    "inverse-surface": "#e7e0e9",
+                    "on-surface": "#e7e0e9",
+                    "inverse-primary": "#674bb7",
+                    "secondary": "#cebdff",
+                    "surface-bright": "#3b383f",
+                    "surface-variant": "#36333a",
+                    "on-error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#cdc0ea",
+                    "primary-container": "#6b4fbb",
+                    "surface-tint": "#cebdff",
+                    "on-primary": "#381286",
+                    "on-tertiary-fixed": "#1f1636",
+                    "surface-container-high": "#2b292f",
+                    "on-surface-variant": "#cac4d4",
+                    "inverse-on-surface": "#322f36",
+                    "surface-container": "#211e25",
+                    "surface-container-lowest": "#0f0d13",
+                    "surface": "#141218",
+                    "secondary-fixed-dim": "#cebdff",
+                    "surface-dim": "#141218",
+                    "outline": "#948e9d",
+                    "on-secondary": "#371682",
+                    "surface-container-low": "#1d1a21",
+                    "on-secondary-fixed": "#20005e",
+                    "on-error": "#690005",
+                    "on-secondary-container": "#bda8ff",
+                    "on-tertiary": "#342b4c",
+                    "on-primary-fixed-variant": "#4f319d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "stack-sm": "12px",
+                    "stack-lg": "48px",
+                    "gutter": "16px",
+                    "stack-md": "24px",
+                    "margin-mobile": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "headline-lg": ["Epilogue"],
+                    "display-lg": ["Epilogue"],
+                    "headline-md": ["Epilogue"],
+                    "label-sm": ["Manrope"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+        .diffusion-glow {
+            box-shadow: 0 0 40px -10px rgba(107, 79, 187, 0.3);
+        }
+        .glass-panel {
+            background: rgba(45, 36, 69, 0.4);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-[#0F0D13] text-on-background font-body-md min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 z-50 w-full bg-[#0F0D13]/80 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-6 py-4 shadow-[0_4px_20px_rgba(107,79,187,0.1)]">
+<div class="flex items-center gap-3 active:scale-95 transition-transform duration-200 cursor-pointer">
+<img alt="User profile photo" class="w-10 h-10 rounded-full border border-primary/30" data-alt="Close-up portrait of a professional female singer in a dimly lit studio with violet ambient light reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEn7KstPptjjSJIyGgNL9-lOmiWN6rhbx3PWBFoFci5s3dA6xQU9OEY9cH7Hl6l0t6L5020S_IGBFLAxhtyix7qGNODWznXLct4zCao7Rk-zeOl5ptmKcbsx6vP7Eh10AXjbdM2QVTTG72U4ooitmRCSR01826v53ykcm2koM3I_MpMbzlSvOlh5g5rxxQl0PdU4QWAyjVPUDlBaKZ6f5q2vmMp27hkz3dxyjS-BDal6KoV76RVtLXRcjgeIYg6bjdv8hpg1D165RB"/>
+<span class="font-epilogue tracking-tight text-white text-xl font-bold">VocalWarm</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-white hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[#6B4FBB]">settings</span>
+</button>
+</div>
+</header>
+<main class="mt-24 px-margin-mobile max-w-4xl mx-auto space-y-stack-lg">
+<!-- Personalized Greeting -->
+<section class="space-y-unit">
+<h1 class="font-display-lg text-display-lg text-white">Welcome back, <span class="text-primary-fixed-dim">Maria!</span></h1>
+<p class="font-body-lg text-on-surface-variant">Ready to find your resonance today?</p>
+</section>
+<!-- Quick Actions -->
+<section class="grid grid-cols-3 gap-gutter">
+<a class="glass-panel rounded-xl p-4 flex flex-col items-center gap-2 group hover:border-primary/40 transition-all active:scale-95" href="#" onclick="event.preventDefault()">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-primary mb-1">
+<span class="material-symbols-outlined">add_circle</span>
+</div>
+<span class="font-label-sm text-label-sm text-center">Create routine</span>
+</a>
+<a class="glass-panel rounded-xl p-4 flex flex-col items-center gap-2 group hover:border-primary/40 transition-all active:scale-95" href="#" onclick="event.preventDefault()">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-primary mb-1">
+<span class="material-symbols-outlined">mic</span>
+</div>
+<span class="font-label-sm text-label-sm text-center">Record</span>
+</a>
+<a class="glass-panel rounded-xl p-4 flex flex-col items-center gap-2 group hover:border-primary/40 transition-all active:scale-95" href="#" onclick="event.preventDefault()">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-primary mb-1">
+<span class="material-symbols-outlined">queue_music</span>
+</div>
+<span class="font-label-sm text-label-sm text-center">Create setlist</span>
+</a>
+</section>
+<!-- My Routines -->
+<section class="space-y-stack-md">
+<div class="flex justify-between items-center px-2">
+<h2 class="font-headline-lg text-headline-lg text-white">My Routines</h2>
+<a class="font-label-sm text-primary uppercase font-bold tracking-wider" href="#" onclick="event.preventDefault()">View All</a>
+</div>
+<div class="flex overflow-x-auto gap-gutter pb-6 no-scrollbar -mx-margin-mobile px-margin-mobile">
+<!-- Warm-up Card -->
+<div class="flex-none w-64 glass-panel rounded-2xl overflow-hidden diffusion-glow active:scale-[0.98] transition-transform">
+<div class="relative h-40 bg-surface-container-high">
+<div class="absolute inset-0 bg-gradient-to-t from-[#0F0D13] to-transparent z-10"></div>
+<img alt="Warm-up" class="w-full h-full object-cover" data-alt="Abstract musical notes glowing in violet light against a dark velvety background with soft bokeh circles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5r9WakZjznhSjQraUISJNorc6LtdNEs8y6VGwIg4vxofzw4vujJKL8PdYSswOpYe-s_OBKRKp3HpI2XFFz9RGrTYPlBHQSNOhXtPxm19Kw9plU-yqpTkZJo-AJj1ptf5CWKxlUeM3ReDQggvkYZBoxWnzhW2Yx9uwJybJS4GJvSIZNkkgddIU83cuayWYrTixoYAQrIkIus6os3lGkxDQQ7QL_N4GzghzwmHdHbUBFJqvCarBPpQDQQeVIhenoBlf_ySBfavKV99J"/>
+<div class="absolute bottom-4 left-4 z-20">
+<span class="bg-primary/20 backdrop-blur-md text-primary text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-widest mb-2 inline-block">15 MINS</span>
+<h3 class="font-headline-md text-headline-md text-white">Warm-up</h3>
+</div>
+</div>
+</div>
+<!-- Melismas Card -->
+<div class="flex-none w-64 glass-panel rounded-2xl overflow-hidden diffusion-glow active:scale-[0.98] transition-transform">
+<div class="relative h-40 bg-surface-container-high">
+<div class="absolute inset-0 bg-gradient-to-t from-[#0F0D13] to-transparent z-10"></div>
+<img alt="Melismas" class="w-full h-full object-cover" data-alt="Macro view of piano strings vibrating with soft purple stage lighting and atmospheric dust motes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALoI2I86z1nIo06HVmgha7EGKAf-k0Bx4nQei5xSNS2XTRxPrHcKMYiW_RIsQcZi8MiyoSi7HcvUxis1Odoav9h8pqe7qUctIk5Vt6-AEWrSH3hpcJwUACxg6HSXxtqhxQSX1QY_PzYRiEn_b-iiHhdnu4cTBfNGHFGEfbc4ipURxQ_ywIWGqZUuBGJvx3BUFn8QED4BHX_Yw9HB8LUp3sGWudAxbUyzO7sArfZr-YxlNThNfAce4eQqpsZQMOg0j5-QYgMVOu-wv0"/>
+<div class="absolute bottom-4 left-4 z-20">
+<span class="bg-primary/20 backdrop-blur-md text-primary text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-widest mb-2 inline-block">25 MINS</span>
+<h3 class="font-headline-md text-headline-md text-white">Melismas</h3>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid for Setlists and Favorites -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<!-- My Setlists -->
+<section class="space-y-stack-sm">
+<div class="flex justify-between items-center px-2">
+<h2 class="font-headline-md text-headline-md text-white">My Setlists</h2>
+<a class="font-label-sm text-primary uppercase font-bold tracking-wider" href="#" onclick="event.preventDefault()">View All</a>
+</div>
+<div class="space-y-gutter">
+<a class="glass-panel p-4 rounded-xl flex items-center gap-4 hover:bg-white/5 transition-colors cursor-pointer group" href="#" onclick="event.preventDefault()">
+<div class="w-14 h-14 rounded-lg bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="Jazz" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="A vintage microphone on a stand in a smoky jazz club with blue and purple backlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0-BCilkfAikBn7pLHG1ySxkfy2bf0cJ1BpW_YU0AZTYym5BbqDYtV9oQDIe6gOR16eAyAuCMpPDQa2SOVp0BRGO5EWNlm6ym-iu_aWVqnRCb9J8sgtkOreuuaKZG3QTaKLg9WGtv67RE-WRXW9I8ROF3WyCzI0cFy3iopZ8_I91yBC1OgzX4v8pMTWwuoA81UWDKQtTBCUoowahNlCBV0a7b-zijbRiHMiaUPc8fKV1-h3ITCf5-y1v644YOGXyOiMcS7DzT0aimo"/>
+</div>
+<div class="flex-1">
+<h4 class="font-body-lg text-white font-semibold">Jazz Standards</h4>
+<p class="text-on-surface-variant text-label-sm">8 Songs • 45 mins</p>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</a>
+<a class="glass-panel p-4 rounded-xl flex items-center gap-4 hover:bg-white/5 transition-colors cursor-pointer group" href="#" onclick="event.preventDefault()">
+<div class="w-14 h-14 rounded-lg bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="Pop" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="Colorful abstract waves of light and energy in shades of purple and pink representing dynamic pop music" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE3ccuDf8lY6jgLCQe16ax79uGmqb_J6_nX4Yy7d2lbsGAOB6-DMYylNS9vUpJSG1jlwzaWrijynAUuiaQH0pgXu-IUWfnlCEvclmA6DYZW1PqlPfr-xm2e2fuyUWVtYEc88mSdMhoxscfbLLF30CL1cmUls-VE8ZPblabCwzbITlhKPuTnr2ryMut7OGZTA3uDYRTtz6QtEFpKR5G4BKABYUQR9EO-OyEh9c_HXxSywN376NmOLn2pIgJwj3pc72QcZ6XSTxCu5KL"/>
+</div>
+<div class="flex-1">
+<h4 class="font-body-lg text-white font-semibold">Pop Audition</h4>
+<p class="text-on-surface-variant text-label-sm">3 Songs • 12 mins</p>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</a>
+</div>
+</section>
+<!-- Favorites -->
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-3 pb-8 bg-[#2D2445]/90 backdrop-blur-2xl rounded-t-3xl border-t border-white/5 shadow-[0_-8px_30px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-[#6B4FBB] drop-shadow-[0_0_8px_rgba(107,79,187,0.5)] active:scale-90 transition-all duration-300 ease-out cursor-pointer" href="#" onclick="event.preventDefault()">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-epilogue text-[10px] font-medium uppercase tracking-widest mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-500 hover:text-white transition-colors active:scale-90 transition-all duration-300 ease-out cursor-pointer" href="#" onclick="event.preventDefault()">
+<span class="material-symbols-outlined">library_music</span>
+<span class="font-epilogue text-[10px] font-medium uppercase tracking-widest mt-1">Music</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-500 hover:text-white transition-colors active:scale-90 transition-all duration-300 ease-out cursor-pointer" href="#" onclick="event.preventDefault()">
+<span class="material-symbols-outlined">piano</span>
+<span class="font-epilogue text-[10px] font-medium uppercase tracking-widest mt-1">Scales</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-500 hover:text-white transition-colors active:scale-90 transition-all duration-300 ease-out cursor-pointer" href="#" onclick="event.preventDefault()">
+<span class="material-symbols-outlined">mic</span>
+<span class="font-epilogue text-[10px] font-medium uppercase tracking-widest mt-1">Record</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-500 hover:text-white transition-colors active:scale-90 transition-all duration-300 ease-out cursor-pointer" href="#" onclick="event.preventDefault()">
+<span class="material-symbols-outlined">auto_awesome_motion</span>
+<span class="font-epilogue text-[10px] font-medium uppercase tracking-widest mt-1">Routines</span>
+</a>
+</nav>
+</body></html>
