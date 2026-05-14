@@ -1,14 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { autoCorrelate, freqToNoteString } from '../utils/pitch';
-
-export const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-export const ALL_NOTES = [];
-for (let octave = 2; octave <= 6; octave++) {
-  for (let note of NOTES) {
-    if (octave === 6 && NOTES.indexOf(note) > NOTES.indexOf('A')) continue;
-    ALL_NOTES.push(`${note}${octave}`);
-  }
-}
+import { ALL_NOTES } from '../utils/music';
 
 const VOICE_TYPES = [
   { label: 'Select your voice type', value: '', low: '', high: '' },
@@ -82,7 +74,7 @@ export default function VocalRangeKeyboard({ lowNote, highNote, onNoteChange }) 
         stopRecording(stream, type);
       }, 3000);
       
-    } catch (err) {
+    } catch (_err) {
       setRecordingStatus('Error: Could not access microphone');
       setRecordingType(null);
     }

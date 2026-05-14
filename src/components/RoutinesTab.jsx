@@ -42,12 +42,14 @@ export default function RoutinesTab({ onNavigate, startInWizard }) {
 
   React.useEffect(() => {
     if (startInWizard) {
-      setWizardStep(1);
-      setNewType('');
-      setNewName('');
-      setNewPhoto(null);
-      setNewExercises([]);
-      setIsWizardOpen(true);
+      setTimeout(() => {
+        setWizardStep(1);
+        setNewType('');
+        setNewName('');
+        setNewPhoto(null);
+        setNewExercises([]);
+        setIsWizardOpen(true);
+      }, 0);
     }
   }, [startInWizard]);
 

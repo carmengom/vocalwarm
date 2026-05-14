@@ -1,4 +1,4 @@
-import { ALL_NOTES } from '../components/VocalRangeKeyboard';
+import { ALL_NOTES } from '../utils/music';
 
 export function autoCorrelate(buf, sampleRate) {
   let SIZE = buf.length;

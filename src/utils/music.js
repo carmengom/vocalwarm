@@ -42,7 +42,14 @@ export const noteToFreq = (noteStr) => {
   return 440 * Math.pow(2, n / 12);
 };
 
-import { ALL_NOTES } from '../components/VocalRangeKeyboard';
+export const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+export const ALL_NOTES = [];
+for (let octave = 2; octave <= 6; octave++) {
+  for (let note of NOTES) {
+    if (octave === 6 && NOTES.indexOf(note) > NOTES.indexOf('A')) continue;
+    ALL_NOTES.push(`${note}${octave}`);
+  }
+}
 
 export const getNoteString = (noteIndex) => {
   if (noteIndex < 0 || noteIndex >= ALL_NOTES.length) return null;

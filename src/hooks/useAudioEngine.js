@@ -1,11 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
 import { noteToFreq } from '../utils/music';
-import { ALL_NOTES } from '../components/VocalRangeKeyboard';
+import { ALL_NOTES } from '../utils/music';
 
 export function useAudioEngine(range) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentModulation, setCurrentModulation] = useState(0);
-  
+
   const audioCtxRef = useRef(null);
   const playStateRef = useRef({
     isPlaying: false,
@@ -27,7 +27,7 @@ export function useAudioEngine(range) {
   const playNote = (freq, startTime, duration) => {
     if (!audioCtxRef.current) return;
     const ctx = audioCtxRef.current;
-    
+
     const masterGain = ctx.createGain();
     masterGain.connect(ctx.destination);
 
@@ -36,7 +36,7 @@ export function useAudioEngine(range) {
     masterGain.gain.exponentialRampToValueAtTime(0.08, startTime + 0.305); // short decay
     masterGain.gain.setValueAtTime(0.08, startTime + duration); // sustain holds
     masterGain.gain.linearRampToValueAtTime(0.001, startTime + duration + 0.1); // clean release
-    
+
     // Fundamental (Sine)
     const osc1 = ctx.createOscillator();
     osc1.type = 'sine';
@@ -63,7 +63,7 @@ export function useAudioEngine(range) {
     stopPlayback();
     playStateRef.current.isPlaying = true;
     setIsPlaying(true);
-    
+
     if (!audioCtxRef.current) audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
     const ctx = audioCtxRef.current;
     if (ctx.state === 'suspended') await ctx.resume();
@@ -81,7 +81,7 @@ export function useAudioEngine(range) {
       const currentRootIdx = baseRootIdx + modOffset;
       const getPeak = (pat) => Math.max(...pat.map(p => Array.isArray(p) ? Math.max(...p) : p));
       const highestNoteInScaleIdx = currentRootIdx + getPeak(scaleDef.pattern);
-      
+
       // Stop if top note exceeds user's saved vocal range
       if (highestNoteInScaleIdx > maxHighIdx) {
         stopPlayback();
@@ -98,10 +98,10 @@ export function useAudioEngine(range) {
       let thirdOffset = 4;
       const flatPattern = scaleDef.pattern.flat(Infinity);
       if (flatPattern.includes(3)) thirdOffset = 3;
-      
+
       const thirdFreq = rootFreq * Math.pow(2, thirdOffset / 12);
       const fifthFreq = rootFreq * Math.pow(2, 7 / 12);
-      
+
       playNote(root, nextNoteTime, 1.0);
       playNote(thirdFreq, nextNoteTime, 1.0);
       playNote(fifthFreq, nextNoteTime, 1.0);
@@ -133,7 +133,7 @@ export function useAudioEngine(range) {
         const isLastNote = index === fullSequence.length - 1;
         const isChord = Array.isArray(step);
         const notes = isChord ? step : [step];
-        
+
         let stepBeats = 1;
         if (isChord) stepBeats = 2;
         else if (scaleDef.id === 'ext_broken' && isLastNote) stepBeats = 2;
@@ -147,7 +147,7 @@ export function useAudioEngine(range) {
 
       // Pause 1.0s before next sequence or stop
       const totalTimeMs = (nextNoteTime - ctx.currentTime + 1.0) * 1000;
-      
+
       const timeoutId = setTimeout(() => {
         if (!playStateRef.current.isPlaying) return;
         if (isLooping) {
@@ -156,7 +156,7 @@ export function useAudioEngine(range) {
           scheduleSequence(modOffset + 1);
         }
       }, totalTimeMs);
-      
+
       playStateRef.current.timeoutIds.push(timeoutId);
     };
 
@@ -167,7 +167,7 @@ export function useAudioEngine(range) {
     stopPlayback();
     playStateRef.current.isPlaying = true;
     setIsPlaying(true);
-    
+
     if (!audioCtxRef.current) audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
     const ctx = audioCtxRef.current;
     if (ctx.state === 'suspended') await ctx.resume();
@@ -176,7 +176,7 @@ export function useAudioEngine(range) {
 
     const baseRootIdx = ALL_NOTES.indexOf(range.low);
     const rootFreq = noteToFreq(ALL_NOTES[baseRootIdx]);
-    
+
     const bpm = 120; // Default for preview
     const beatDuration = 60 / bpm;
     let nextNoteTime = ctx.currentTime + 0.1;
@@ -184,18 +184,18 @@ export function useAudioEngine(range) {
     // Ascending and descending pass
     let previewNotes = [];
     if (scaleDef.isFull) {
-        previewNotes = scaleDef.pattern;
+      previewNotes = scaleDef.pattern;
     } else {
-        const ascending = scaleDef.pattern;
-        const descending = [...scaleDef.pattern].reverse();
-        previewNotes = [...ascending, ...descending.slice(1)];
+      const ascending = scaleDef.pattern;
+      const descending = [...scaleDef.pattern].reverse();
+      previewNotes = [...ascending, ...descending.slice(1)];
     }
-    
+
     previewNotes.forEach((step, index) => {
       const isLastNote = index === previewNotes.length - 1;
       const isChord = Array.isArray(step);
       const notes = isChord ? step : [step];
-      
+
       let stepBeats = 1;
       if (isChord) stepBeats = 2;
       else if (scaleDef.id === 'ext_broken' && isLastNote) stepBeats = 2;
@@ -211,7 +211,7 @@ export function useAudioEngine(range) {
     const timeoutId = setTimeout(() => {
       stopPlayback();
     }, totalTimeMs);
-    
+
     playStateRef.current.timeoutIds.push(timeoutId);
   };
 

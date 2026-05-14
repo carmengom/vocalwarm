@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useAudioEngine } from '../hooks/useAudioEngine';
 import { SCALES_DEF, getNoteString } from '../utils/music';
-import { ALL_NOTES } from './VocalRangeKeyboard';
+import { ALL_NOTES } from '../utils/music';
 
 export default function ActiveRoutine({ routineId, isMinimized, onMinimize, onStop }) {
   const [routines] = useLocalStorage('vw_routines', []);

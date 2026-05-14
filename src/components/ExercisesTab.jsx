@@ -3,7 +3,8 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useAudioEngine } from '../hooks/useAudioEngine';
 import { SCALES_DEF, getNoteString } from '../utils/music';
 
-import VocalRangeKeyboard, { ALL_NOTES } from './VocalRangeKeyboard';
+import VocalRangeKeyboard from './VocalRangeKeyboard';
+import { ALL_NOTES } from '../utils/music';
 
 export default function ExercisesTab() {
   const [range, setRange] = useLocalStorage('vw_range', { low: 'C3', high: 'C5' });

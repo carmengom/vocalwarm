@@ -12,13 +12,23 @@ export default function AuthFlow({ onAuthSuccess }) {
     setError('');
 
     if (isLogin) {
+      if (!email || !password) {
+        setError('Please enter your email and password.');
+        return;
+      }
+      
       const storedUser = localStorage.getItem('vw_user');
       if (storedUser) {
-        // Enforce onboarding skip for returning users who log in.
-        localStorage.setItem('vw_onboarding_complete', 'true');
-        onAuthSuccess(JSON.parse(storedUser));
+        const parsedUser = JSON.parse(storedUser);
+        if (parsedUser.email === email && parsedUser.password === password) {
+          // Enforce onboarding skip for returning users who log in.
+          localStorage.setItem('vw_onboarding_complete', 'true');
+          onAuthSuccess(parsedUser);
+        } else {
+          setError('Invalid email or password.');
+        }
       } else {
-        setError('Account not found.');
+        setError('Account not found. Please sign up first.');
       }
     } else {
       if (!name || !email || !password) {
