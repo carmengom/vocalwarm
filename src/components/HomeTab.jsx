@@ -105,7 +105,7 @@ export default function HomeTab({ onNavigate }) {
             {topRoutines.map(routine => (
               <div key={routine.id} className="flex-none w-64 glass-panel rounded-2xl overflow-hidden diffusion-glow active:scale-[0.98] transition-transform cursor-pointer" onClick={() => onNavigate('routines')}>
                 <div className="relative h-40 bg-surface-container-high p-4 flex flex-col justify-end">
-                  {routine.photo && <img src={routine.photo} alt={routine.name} className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay" />}
+                  {routine.photo && <img src={routine.photo} alt={routine.name} className="absolute inset-0 w-full h-full object-cover opacity-100" />}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0F0D13] to-transparent z-10"></div>
                   <div className="relative z-20">
                     <span className="bg-primary/20 backdrop-blur-md text-primary text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-widest mb-2 inline-block">
