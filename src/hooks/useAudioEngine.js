@@ -79,7 +79,8 @@ export function useAudioEngine(range) {
       playStateRef.current.modulation = modOffset;
 
       const currentRootIdx = baseRootIdx + modOffset;
-      const highestNoteInScaleIdx = currentRootIdx + Math.max(...scaleDef.pattern);
+      const getPeak = (pat) => Math.max(...pat.map(p => Array.isArray(p) ? Math.max(...p) : p));
+      const highestNoteInScaleIdx = currentRootIdx + getPeak(scaleDef.pattern);
       
       // Stop if top note exceeds user's saved vocal range
       if (highestNoteInScaleIdx > maxHighIdx) {
@@ -94,8 +95,11 @@ export function useAudioEngine(range) {
 
       // Play chord cue
       const root = rootFreq;
-      const thirdIndex = scaleDef.pattern.includes(3) ? 3 : (scaleDef.pattern.includes(4) ? 4 : 4);
-      const thirdFreq = rootFreq * Math.pow(2, thirdIndex / 12);
+      let thirdOffset = 4;
+      const flatPattern = scaleDef.pattern.flat(Infinity);
+      if (flatPattern.includes(3)) thirdOffset = 3;
+      
+      const thirdFreq = rootFreq * Math.pow(2, thirdOffset / 12);
       const fifthFreq = rootFreq * Math.pow(2, 7 / 12);
       
       playNote(root, nextNoteTime, 1.0);
@@ -103,19 +107,42 @@ export function useAudioEngine(range) {
       playNote(fifthFreq, nextNoteTime, 1.0);
       nextNoteTime += 1.0;
 
-      const ascending = scaleDef.pattern;
-      const descending = [...scaleDef.pattern].reverse();
-      
-      let fullSequence = [];
-      if (direction === 'asc_desc') fullSequence = [...ascending, ...descending.slice(1)];
-      else if (direction === 'desc_asc') fullSequence = [...descending, ...ascending.slice(1)];
-      else if (direction === 'asc') fullSequence = [...ascending];
-      else if (direction === 'desc') fullSequence = [...descending];
+      let ascending, descending;
+      if (scaleDef.isFull) {
+        let peakIdx = 0;
+        let peakVal = -1;
+        scaleDef.pattern.forEach((p, i) => {
+          const v = Array.isArray(p) ? Math.max(...p) : p;
+          if (v > peakVal && !Array.isArray(p)) { peakVal = v; peakIdx = i; }
+        });
+        if (peakIdx === 0) peakIdx = scaleDef.pattern.length - 1;
+        ascending = scaleDef.pattern.slice(0, peakIdx + 1);
+        descending = scaleDef.pattern.slice(peakIdx);
+      } else {
+        ascending = scaleDef.pattern;
+        descending = [...scaleDef.pattern].reverse();
+      }
 
-      fullSequence.forEach((offset) => {
-        const freq = rootFreq * Math.pow(2, offset / 12);
-        playNote(freq, nextNoteTime, beatDuration * 0.9);
-        nextNoteTime += beatDuration;
+      let fullSequence = [];
+      if (direction === 'asc_desc') fullSequence = scaleDef.isFull ? scaleDef.pattern : [...ascending, ...descending.slice(1)];
+      else if (direction === 'desc_asc') fullSequence = scaleDef.isFull ? [...scaleDef.pattern].reverse() : [...descending, ...ascending.slice(1)];
+      else if (direction === 'asc') fullSequence = ascending;
+      else if (direction === 'desc') fullSequence = descending;
+
+      fullSequence.forEach((step, index) => {
+        const isLastNote = index === fullSequence.length - 1;
+        const isChord = Array.isArray(step);
+        const notes = isChord ? step : [step];
+        
+        let stepBeats = 1;
+        if (isChord) stepBeats = 2;
+        else if (scaleDef.id === 'ext_broken' && isLastNote) stepBeats = 2;
+
+        notes.forEach(offset => {
+          const freq = rootFreq * Math.pow(2, offset / 12);
+          playNote(freq, nextNoteTime, beatDuration * stepBeats * 0.9);
+        });
+        nextNoteTime += beatDuration * stepBeats;
       });
 
       // Pause 1.0s before next sequence or stop
@@ -155,12 +182,34 @@ export function useAudioEngine(range) {
     let nextNoteTime = ctx.currentTime + 0.1;
 
     // Full ascending pass
-    const previewNotes = scaleDef.pattern;
+    let previewNotes = [];
+    if (scaleDef.isFull) {
+        let peakIdx = 0;
+        let peakVal = -1;
+        scaleDef.pattern.forEach((p, i) => {
+          const v = Array.isArray(p) ? Math.max(...p) : p;
+          if (v > peakVal && !Array.isArray(p)) { peakVal = v; peakIdx = i; }
+        });
+        if (peakIdx === 0) peakIdx = scaleDef.pattern.length - 1;
+        previewNotes = scaleDef.pattern.slice(0, peakIdx + 1);
+    } else {
+        previewNotes = scaleDef.pattern;
+    }
     
-    previewNotes.forEach((offset) => {
-      const freq = rootFreq * Math.pow(2, offset / 12);
-      playNote(freq, nextNoteTime, beatDuration);
-      nextNoteTime += beatDuration;
+    previewNotes.forEach((step, index) => {
+      const isLastNote = index === previewNotes.length - 1;
+      const isChord = Array.isArray(step);
+      const notes = isChord ? step : [step];
+      
+      let stepBeats = 1;
+      if (isChord) stepBeats = 2;
+      else if (scaleDef.id === 'ext_broken' && isLastNote) stepBeats = 2;
+
+      notes.forEach(offset => {
+        const freq = rootFreq * Math.pow(2, offset / 12);
+        playNote(freq, nextNoteTime, beatDuration * stepBeats * 0.9);
+      });
+      nextNoteTime += beatDuration * stepBeats;
     });
 
     const totalTimeMs = (nextNoteTime - ctx.currentTime + 0.5) * 1000; // wait for release

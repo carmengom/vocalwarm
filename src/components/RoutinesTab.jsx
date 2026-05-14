@@ -10,18 +10,7 @@ const TYPES = [
   { id: 'custom', name: 'Custom', desc: 'Build your own', icon: 'build', color: 'bg-slate-500/20 text-slate-400' }
 ];
 
-const SCALES = [
-  { id: 'major', name: 'Major Scale', duration: 3 },
-  { id: 'maj_pent', name: 'Major Pentatonic', duration: 2 },
-  { id: 'maj_arp', name: 'Major Arpeggio', duration: 2 },
-  { id: 'nat_min', name: 'Natural Minor', duration: 3 },
-  { id: 'min_pent', name: 'Minor Pentatonic', duration: 2 },
-  { id: 'harm_min', name: 'Harmonic Minor', duration: 3 },
-  { id: 'dorian', name: 'Dorian', duration: 3 },
-  { id: 'mixo', name: 'Mixolydian', duration: 3 },
-  { id: 'chromatic', name: 'Chromatic', duration: 4 },
-  { id: 'whole', name: 'Whole Tone', duration: 3 }
-];
+const SCALES = SCALES_DEF.map(s => ({ id: s.id, name: s.name, duration: s.duration }));
 
 export default function RoutinesTab({ onNavigate, startInWizard }) {
   const [routines, setRoutines] = useLocalStorage('vw_routines', []);
