@@ -181,19 +181,14 @@ export function useAudioEngine(range) {
     const beatDuration = 60 / bpm;
     let nextNoteTime = ctx.currentTime + 0.1;
 
-    // Full ascending pass
+    // Ascending and descending pass
     let previewNotes = [];
     if (scaleDef.isFull) {
-        let peakIdx = 0;
-        let peakVal = -1;
-        scaleDef.pattern.forEach((p, i) => {
-          const v = Array.isArray(p) ? Math.max(...p) : p;
-          if (v > peakVal && !Array.isArray(p)) { peakVal = v; peakIdx = i; }
-        });
-        if (peakIdx === 0) peakIdx = scaleDef.pattern.length - 1;
-        previewNotes = scaleDef.pattern.slice(0, peakIdx + 1);
-    } else {
         previewNotes = scaleDef.pattern;
+    } else {
+        const ascending = scaleDef.pattern;
+        const descending = [...scaleDef.pattern].reverse();
+        previewNotes = [...ascending, ...descending.slice(1)];
     }
     
     previewNotes.forEach((step, index) => {
