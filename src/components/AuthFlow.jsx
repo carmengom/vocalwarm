@@ -87,10 +87,7 @@ export default function AuthFlow({ onAuthSuccess }) {
           </div>
 
           <div className="space-y-2">
-            <div className="flex justify-between items-center">
-              <label className="text-label-sm uppercase tracking-widest text-on-surface-variant">Password</label>
-              {isLogin && <a href="#" className="text-label-sm text-primary hover:text-white transition-colors">Forgot Password?</a>}
-            </div>
+            <label className="text-label-sm uppercase tracking-widest text-on-surface-variant">Password</label>
             <div className="flex items-center gap-3 bg-surface-container-high p-3 rounded-xl focus-within:ring-2 focus-within:ring-primary transition-all">
               <span className="material-symbols-outlined text-outline">lock</span>
               <input 
@@ -117,19 +114,7 @@ export default function AuthFlow({ onAuthSuccess }) {
             </p>
           </div>
 
-          <div className="relative py-4 flex items-center justify-center">
-            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/10"></div></div>
-            <span className="relative bg-[#1A1625] px-4 text-xs text-on-surface-variant uppercase tracking-widest">Or continue with</span>
-          </div>
 
-          <div className="flex gap-4">
-            <button type="button" className="flex-1 bg-surface-container-highest py-3 rounded-xl flex items-center justify-center gap-2 text-white hover:bg-white/10 active:scale-95 transition-all">
-              <span className="text-[#4285F4] font-bold">G</span> Google
-            </button>
-            <button type="button" className="flex-1 bg-surface-container-highest py-3 rounded-xl flex items-center justify-center gap-2 text-white hover:bg-white/10 active:scale-95 transition-all">
-              <span className="text-white font-bold"></span> Apple
-            </button>
-          </div>
         </form>
 
         {!isLogin && (

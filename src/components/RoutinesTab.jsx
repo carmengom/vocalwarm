@@ -33,9 +33,12 @@ export default function RoutinesTab({ onNavigate, startInWizard }) {
   
   // Edit State
   const [editModeId, setEditModeId] = useState(null);
+  const [editRoutineName, setEditRoutineName] = useState('');
+  const [editRoutinePhoto, setEditRoutinePhoto] = useState(null);
   const [editExercises, setEditExercises] = useState([]);
   
   const fileInputRef = useRef(null);
+  const editFileInputRef = useRef(null);
 
   React.useEffect(() => {
     if (startInWizard) {
@@ -72,6 +75,17 @@ export default function RoutinesTab({ onNavigate, startInWizard }) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setNewPhoto(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleEditPhotoUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setEditRoutinePhoto(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -138,6 +152,8 @@ export default function RoutinesTab({ onNavigate, startInWizard }) {
 
   const openEditMode = (routine) => {
     setEditModeId(routine.id);
+    setEditRoutineName(routine.name);
+    setEditRoutinePhoto(routine.photo || null);
     setEditExercises(routine.exercises.map(ex => ex.id));
   };
 
@@ -154,7 +170,7 @@ export default function RoutinesTab({ onNavigate, startInWizard }) {
 
     const totalDuration = exercisesList.reduce((acc, curr) => acc + curr.duration, 0);
 
-    setRoutines(prev => prev.map(r => r.id === editModeId ? { ...r, exercises: exercisesList, duration: totalDuration } : r));
+    setRoutines(prev => prev.map(r => r.id === editModeId ? { ...r, name: editRoutineName, photo: editRoutinePhoto, exercises: exercisesList, duration: totalDuration } : r));
     setEditModeId(null);
   };
 
@@ -202,7 +218,43 @@ export default function RoutinesTab({ onNavigate, startInWizard }) {
         </header>
 
         <div className="px-6 max-w-4xl mx-auto space-y-6 pt-8">
-          <div className="flex justify-between items-end">
+          <div className="space-y-4">
+            <label className="block text-label-sm uppercase tracking-widest text-on-surface-variant">Routine Name</label>
+            <div className="glass-panel rounded-xl p-2 focus-within:ring-2 focus-within:ring-primary focus-within:diffusion-glow transition-all">
+              <input 
+                type="text" 
+                value={editRoutineName} 
+                onChange={e => setEditRoutineName(e.target.value)}
+                className="w-full bg-transparent border-none text-2xl font-headline-md text-white p-4 focus:outline-none focus:ring-0"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-4 pt-4">
+            <label className="block text-label-sm uppercase tracking-widest text-on-surface-variant">Cover Photo</label>
+            <div 
+              className="relative h-40 glass-panel rounded-xl border-dashed border-2 border-white/10 flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-primary/50 transition-colors overflow-hidden"
+              onClick={() => editFileInputRef.current?.click()}
+            >
+              {editRoutinePhoto ? (
+                <>
+                  <img src={editRoutinePhoto} alt="Cover" className="absolute inset-0 w-full h-full object-cover opacity-60" />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <span className="material-symbols-outlined text-4xl text-white drop-shadow-md">edit</span>
+                    <span className="text-sm text-white drop-shadow-md font-medium">Tap to change</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <span className="material-symbols-outlined text-4xl text-outline">add_photo_alternate</span>
+                  <span className="text-sm text-on-surface-variant">Tap to upload</span>
+                </>
+              )}
+            </div>
+            <input type="file" accept="image/*" ref={editFileInputRef} onChange={handleEditPhotoUpload} className="hidden" />
+          </div>
+
+          <div className="flex justify-between items-end mt-8">
             <h2 className="font-display-lg text-4xl text-white">Edit Exercises</h2>
             <div className="text-right">
               <p className="font-label-sm text-primary">{editExercises.length} selected</p>

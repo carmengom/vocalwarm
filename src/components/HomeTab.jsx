@@ -3,11 +3,13 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export default function HomeTab({ onNavigate }) {
   const [user, setUser] = useLocalStorage('vw_user', {});
-  const name = user.displayName || user.name || 'Singer';
+  const name = user?.displayName || user?.name || 'Singer';
   const [routines] = useLocalStorage('vw_routines', []);
   const [routinePlays] = useLocalStorage('vw_routine_plays', {});
-  const [recordings] = useLocalStorage('vw_recordings', []);
+  const [recordings, setRecordings] = useLocalStorage('vw_recordings', []);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [editingId, setEditingId] = useState(null);
+  const [editName, setEditName] = useState('');
 
   const handleLogout = () => {
     localStorage.removeItem('vw_user');
@@ -22,6 +24,20 @@ export default function HomeTab({ onNavigate }) {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
     return `${m}:${s.toString().padStart(2, '0')}`;
+  };
+
+  const deleteRecording = (id) => {
+    setRecordings(prev => prev.filter(r => r.id !== id));
+  };
+
+  const startEditing = (id, currentName) => {
+    setEditingId(id);
+    setEditName(currentName);
+  };
+
+  const saveEditing = (id) => {
+    setRecordings(prev => prev.map(r => r.id === id ? { ...r, name: editName } : r));
+    setEditingId(null);
   };
 
   return (
@@ -44,7 +60,7 @@ export default function HomeTab({ onNavigate }) {
               <div className="absolute right-0 mt-2 w-56 glass-panel border border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden animate-[slideDown_0.2s_ease]">
                 <div className="p-4 border-b border-white/10 bg-surface-container-highest/50">
                   <p className="font-headline-md text-white truncate">{name}</p>
-                  <p className="text-xs text-on-surface-variant truncate mt-0.5">{user.email || 'No email provided'}</p>
+                  <p className="text-xs text-on-surface-variant truncate mt-0.5">{user?.email || 'No email provided'}</p>
                 </div>
                 <div className="p-2">
                   <button 
@@ -64,12 +80,12 @@ export default function HomeTab({ onNavigate }) {
       {/* Personalized Greeting */}
       <section className="space-y-2 mt-8">
         <h1 className="font-display-lg text-4xl text-white flex items-center gap-2">
-          Welcome back,
+          Welcome,
         </h1>
         <input 
           type="text" 
           value={name} 
-          onChange={(e) => setUser({ ...user, displayName: e.target.value })} 
+          onChange={(e) => setUser({ ...(user || {}), displayName: e.target.value })} 
           className="font-display-lg text-4xl text-primary-fixed-dim bg-transparent border-b border-transparent focus:border-primary-fixed-dim focus:outline-none p-0 w-full"
           placeholder="Your name"
         />
@@ -103,7 +119,7 @@ export default function HomeTab({ onNavigate }) {
         ) : (
           <div className="flex overflow-x-auto gap-4 pb-6 no-scrollbar -mx-6 px-6">
             {topRoutines.map(routine => (
-              <div key={routine.id} className="flex-none w-64 glass-panel rounded-2xl overflow-hidden diffusion-glow active:scale-[0.98] transition-transform cursor-pointer" onClick={() => onNavigate('routines')}>
+              <div key={routine.id} className="flex-none w-64 glass-panel rounded-2xl overflow-hidden diffusion-glow active:scale-[0.98] transition-transform cursor-pointer" onClick={() => window.dispatchEvent(new CustomEvent('vw_start_routine', { detail: routine.id }))}>
                 <div className="relative h-40 bg-surface-container-high p-4 flex flex-col justify-end">
                   {routine.photo && <img src={routine.photo} alt={routine.name} className="absolute inset-0 w-full h-full object-cover opacity-100" />}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0F0D13] to-transparent z-10"></div>
@@ -134,26 +150,51 @@ export default function HomeTab({ onNavigate }) {
         ) : (
           <div className="space-y-3">
             {recentRecordings.map(rec => (
-              <div 
-                key={rec.id} 
-                className="glass-panel p-3 rounded-xl flex items-center gap-4 cursor-pointer transition-all active:scale-[0.98] hover:border-primary/40"
-                onClick={() => onNavigate('recordings')}
-              >
-                <div className="w-14 h-14 flex-none rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
-                  <span className="material-symbols-outlined text-2xl">graphic_eq</span>
+              <div key={rec.id} className="glass-panel p-4 rounded-xl flex flex-col gap-3">
+                <div className="flex justify-between items-start">
+                  {editingId === rec.id ? (
+                    <div className="flex-1 flex gap-2">
+                      <input 
+                        type="text" 
+                        value={editName}
+                        onChange={(e) => setEditName(e.target.value)}
+                        className="flex-1 bg-surface-container-highest border border-white/10 text-white px-3 py-1 rounded-lg focus:outline-none focus:border-primary"
+                        autoFocus
+                      />
+                      <button className="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-lg" onClick={() => saveEditing(rec.id)}>
+                        <span className="material-symbols-outlined text-[16px]">check</span>
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex-1 flex items-center gap-4">
+                      <div className="w-14 h-14 flex-none rounded-lg bg-surface-container-highest flex items-center justify-center text-primary cursor-pointer hover:bg-surface-variant transition-colors" onClick={() => onNavigate('recordings')}>
+                        <span className="material-symbols-outlined text-2xl">graphic_eq</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-headline-md text-base text-white truncate cursor-pointer hover:text-primary transition-colors" onClick={() => onNavigate('recordings')}>{rec.name}</h3>
+                          <button className="text-outline hover:text-primary transition-colors" onClick={() => startEditing(rec.id, rec.name)}>
+                            <span className="material-symbols-outlined text-[16px]">edit</span>
+                          </button>
+                        </div>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="bg-white/10 px-2 py-0.5 rounded-full text-[10px] text-on-surface-variant uppercase tracking-wider">
+                            {formatTime(rec.duration)}
+                          </span>
+                          <span className="text-xs text-on-surface-variant truncate">
+                            {new Date(rec.id).toLocaleDateString()} at {new Date(rec.id).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  <button className="w-8 h-8 flex items-center justify-center text-outline hover:text-error hover:bg-error/10 rounded-full transition-colors ml-2" onClick={() => deleteRecording(rec.id)}>
+                    <span className="material-symbols-outlined text-[18px]">delete</span>
+                  </button>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-headline-md text-base text-white truncate">{rec.name}</h3>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="bg-white/10 px-2 py-0.5 rounded-full text-[10px] text-on-surface-variant uppercase tracking-wider">
-                      {formatTime(rec.duration)}
-                    </span>
-                    <span className="text-xs text-on-surface-variant truncate">
-                      {new Date(rec.id).toLocaleDateString()}
-                    </span>
-                  </div>
-                </div>
-                <span className="material-symbols-outlined text-outline">chevron_right</span>
+                
+                <audio controls src={rec.audio} className="w-full h-10 mt-2 opacity-80 hue-rotate-[240deg]" />
               </div>
             ))}
           </div>
